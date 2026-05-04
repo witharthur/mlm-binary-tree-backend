@@ -16,6 +16,8 @@ downloads/
 eggs/
 .eggs/
 lib/
+!frontend/src/lib/
+!frontend/src/lib/**
 lib64/
 parts/
 sdist/
@@ -79,7 +81,10 @@ Thumbs.db
 
 # Node (if applicable)
 node_modules/
+.next/
+out/
 npm-debug.log
+*.tsbuildinfo
 
 # Temporary files
 *.tmp
