@@ -5,6 +5,7 @@ from functools import lru_cache
 class Settings(BaseSettings):
     DATABASE_URL: str = "postgresql+asyncpg://mlm:mlm_secret@localhost:5432/mlm_platform"
     DATABASE_URL_SYNC: str = "postgresql+psycopg2://mlm:mlm_secret@localhost:5432/mlm_platform"
+    MONGODB_URL: str = ""  # Read from .env file (keep credentials out of git)
     REDIS_URL: str = "redis://localhost:6379/0"
 
     SECRET_KEY: str = "change-me"
