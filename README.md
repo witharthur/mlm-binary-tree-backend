@@ -1,6 +1,6 @@
 # MLM Platform — Backend
 
-A production-ready backend for a Multi-Level Marketing platform with a **binary tree** structure, built with **FastAPI**, **PostgreSQL**, **Redis**, and **Celery**.
+A production-ready backend for a Multi-Level Marketing platform with a **binary tree** structure, built with **FastAPI**, **MongoDB**, **Redis**, and **Celery**.
 
 Designed for high-load financial operations with full transactional safety, race condition prevention, and idempotent bonus calculations.
 
@@ -63,7 +63,7 @@ Designed for high-load financial operations with full transactional safety, race
 |-----------|-----------|
 | API Framework | FastAPI 0.115 |
 | ORM | SQLAlchemy 2.0 (async) |
-| Database | PostgreSQL 16 |
+| Database | MongoDB 16 |
 | Cache / Broker | Redis 7 |
 | Task Queue | Celery 5.4 |
 | Auth | JWT (python-jose) + bcrypt (passlib) |
@@ -111,7 +111,7 @@ mlm-platform/
 │       └── tasks.py             # PV propagation + binary bonus tasks
 │
 ├── migrations/
-│   └── 001_initial.sql          # Full PostgreSQL schema (tables, indexes, enums)
+│   └── 001_initial.sql          # Full MongoDB schema (tables, indexes, enums)
 │
 ├── docker-compose.yml           # Postgres, Redis, API, Celery worker + beat
 ├── Dockerfile                   # Python 3.12 production image
@@ -125,8 +125,8 @@ mlm-platform/
 ## Getting Started
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `DATABASE_URL` | `postgresql+asyncpg://mlm:mlm_secret@localhost:5432/mlm_platform` | Async DB connection (FastAPI) |
-| `DATABASE_URL_SYNC` | `postgresql+psycopg2://mlm:mlm_secret@localhost:5432/mlm_platform` | Sync DB connection (Celery) |
+| `DATABASE_URL` | `MongoDB+asyncpg://mlm:mlm_secret@localhost:5432/mlm_platform` | Async DB connection (FastAPI) |
+| `DATABASE_URL_SYNC` | `MongoDB+psycopg2://mlm:mlm_secret@localhost:5432/mlm_platform` | Sync DB connection (Celery) |
 | `REDIS_URL` | `redis://localhost:6379/0` | Redis for caching |
 | `SECRET_KEY` | `change-me` | JWT signing key (**change in production!**) |
 | `ACCESS_TOKEN_EXPIRE_MINUTES` | `60` | JWT token lifetime |
@@ -143,7 +143,7 @@ Simply run `start-all.bat` in the root directory. This will install dependencies
 
 - **Docker & Docker Compose** (recommended), or:
 - Python 3.12+
-- PostgreSQL 16+
+- MongoDB 16+
 - Redis 7+
 
 ### Environment Variables
@@ -196,7 +196,7 @@ celery -A app.workers.celery_app beat -l info
 
 ## Database Schema
 
-8 tables, fully typed with PostgreSQL enums and constraints:
+8 tables, fully typed with MongoDB enums and constraints:
 
 ```
 ┌──────────────┐     ┌──────────────┐     ┌──────────────┐
