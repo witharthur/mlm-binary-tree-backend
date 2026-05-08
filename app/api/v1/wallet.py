@@ -29,7 +29,7 @@ async def deposit(
         user_id=user.id,
         amount=data.amount,
         tx_type=TxType.DEPOSIT,
-        balance_type=BalanceType.MAIN,
+        balance_type=BalanceType.DEPOSIT,
         idempotency_key=data.idempotency_key,
         description="Manual deposit",
     )

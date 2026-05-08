@@ -98,7 +98,7 @@ export function useDepositMutation() {
       if (previousWallet) {
         queryClient.setQueryData<Wallet>(queryKeys.wallet, {
           ...previousWallet,
-          main_balance: toNumber(previousWallet.main_balance) + toNumber(payload.amount)
+          deposit_balance: toNumber(previousWallet.deposit_balance) + toNumber(payload.amount)
         });
       }
 
@@ -107,7 +107,7 @@ export function useDepositMutation() {
         wallet_id: previousWallet?.id ?? "wallet",
         type: "DEPOSIT",
         amount: payload.amount,
-        balance_type: "MAIN",
+        balance_type: "DEPOSIT",
         description: "Pending manual deposit",
         idempotency_key: payload.idempotency_key,
         created_at: new Date().toISOString()

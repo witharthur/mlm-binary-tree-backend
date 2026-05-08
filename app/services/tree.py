@@ -186,6 +186,10 @@ async def _build_node(session: AsyncSession, user: User, depth: int) -> dict:
         "id": str(user.id),
         "username": user.username,
         "placement_side": user.placement_side,
+        "left_pv": float(user.left_pv),
+        "right_pv": float(user.right_pv),
+        "package_id": user.package_id,
+        "is_active": user.is_active,
         "left_child": None,
         "right_child": None,
     }

@@ -1,0 +1,17 @@
+feat: improve frontend integration, enhance MongoDB connectivity, expand CORS configuration, and fix wallet deposit processing issues
+
+- added full frontend-backend connection support for local development
+- expanded CORS middleware configuration for frontend testing environments
+- fixed multiple frontend API communication issues and preflight request handling
+- improved MongoDB Atlas connection logic and environment configuration
+- added better MongoDB timeout and connection error handling
+- updated wallet deposit processing flow and transaction validation
+- fixed deposit balance synchronization bugs between frontend and backend
+- improved API response consistency for frontend integration
+- enhanced authentication error handling and JWT validation responses
+- fixed frontend request failures caused by invalid headers and blocked origins
+- added safer database initialization and fallback connection handling
+- improved logging for frontend debugging and backend diagnostics
+- optimized error responses for easier frontend state management
+- cleaned up backend validation flow for registration and wallet operations
+- improved development environment compatibility for React/Next.js frontend

@@ -96,7 +96,7 @@ async def purchase_package(
     session.add(pv_event)
 
     # Instant referral bonus
-    await accrue_referral_bonus(session, user, pkg.price)
+    await accrue_referral_bonus(session, user, price)
 
     await session.commit()
     return order

@@ -42,6 +42,7 @@ Designed for high-load financial operations with full transactional safety, race
 | Feature | Description |
 |---------|-------------|
 | **JWT Authentication** | Secure token-based auth with configurable expiry |
+| **CORS Stability** | Global exception handling ensures CORS headers are present even on 500 errors |
 | **Referral Registration** | `/ref/{user_id}/L` and `/ref/{user_id}/R` link-based registration |
 | **Binary Tree** | Auto-placement with BFS spillover, safe for 1000+ concurrent insertions |
 | **Wallet System** | Dual balances (`main_balance`, `deposit_balance`) with full transaction history |
@@ -122,6 +123,21 @@ mlm-platform/
 ---
 
 ## Getting Started
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `DATABASE_URL` | `postgresql+asyncpg://mlm:mlm_secret@localhost:5432/mlm_platform` | Async DB connection (FastAPI) |
+| `DATABASE_URL_SYNC` | `postgresql+psycopg2://mlm:mlm_secret@localhost:5432/mlm_platform` | Sync DB connection (Celery) |
+| `REDIS_URL` | `redis://localhost:6379/0` | Redis for caching |
+| `SECRET_KEY` | `change-me` | JWT signing key (**change in production!**) |
+| `ACCESS_TOKEN_EXPIRE_MINUTES` | `60` | JWT token lifetime |
+| `CELERY_BROKER_URL` | `redis://localhost:6379/1` | Celery message broker |
+| `CELERY_RESULT_BACKEND` | `redis://localhost:6379/2` | Celery result storage |
+
+> [!IMPORTANT]
+> **Local vs Docker Setup**: If running the backend locally (via `start-all.bat` or `uvicorn`), ensure `.env` hostnames for Postgres and Redis are set to `localhost`. If running via `docker-compose`, they should be set to `postgres` and `redis`.
+
+### 🚀 Easy Start (Windows)
+Simply run `start-all.bat` in the root directory. This will install dependencies and start both the Frontend (Port 3000) and Backend (Port 8000).
 
 ### Prerequisites
 
@@ -138,16 +154,6 @@ Copy the example and customize:
 cp .env.example .env
 ```
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `DATABASE_URL` | `postgresql+asyncpg://mlm:mlm_secret@localhost:5432/mlm_platform` | Async DB connection (FastAPI) |
-| `DATABASE_URL_SYNC` | `postgresql+psycopg2://mlm:mlm_secret@localhost:5432/mlm_platform` | Sync DB connection (Celery) |
-| `REDIS_URL` | `redis://localhost:6379/0` | Redis for caching |
-| `SECRET_KEY` | `change-me` | JWT signing key (**change in production!**) |
-| `ACCESS_TOKEN_EXPIRE_MINUTES` | `60` | JWT token lifetime |
-| `CELERY_BROKER_URL` | `redis://localhost:6379/1` | Celery message broker |
-| `CELERY_RESULT_BACKEND` | `redis://localhost:6379/2` | Celery result storage |
-
 ### Run with Docker
 
 The easiest way — starts everything (Postgres, Redis, API, Celery worker, Celery beat):
@@ -155,6 +161,9 @@ The easiest way — starts everything (Postgres, Redis, API, Celery worker, Cele
 ```bash
 docker-compose up --build
 ```
+
+> [!NOTE]
+> When running in Docker, the API expects `.env` to have `DATABASE_URL=...postgres:5432...`.
 
 The API will be available at **http://localhost:8000**.  
 Interactive docs at **http://localhost:8000/docs**.
@@ -478,7 +487,3 @@ GET /health → {"status": "ok"}
 ```
 
 ---
-
-## License
-
-This project is proprietary. All rights reserved.

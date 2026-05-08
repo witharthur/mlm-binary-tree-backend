@@ -31,7 +31,8 @@ export function ProtectedShell({ children }: { children: ReactNode }) {
   }, [meQuery.data, setUser]);
 
   useEffect(() => {
-    if (meQuery.error && token) {
+    const isUnauthorized = (meQuery.error as any)?.response?.status === 401;
+    if (isUnauthorized && token) {
       logout();
       router.replace("/login");
     }
