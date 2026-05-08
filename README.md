@@ -136,7 +136,7 @@ mlm-platform/
 > [!IMPORTANT]
 > **Local vs Docker Setup**: If running the backend locally (via `start-all.bat` or `uvicorn`), ensure `.env` hostnames for Postgres and Redis are set to `localhost`. If running via `docker-compose`, they should be set to `postgres` and `redis`.
 
-### 🚀 Easy Start (Windows)
+### Easy Start (Windows)
 Simply run `start-all.bat` in the root directory. This will install dependencies and start both the Frontend (Port 3000) and Backend (Port 8000).
 
 ### Prerequisites
@@ -487,7 +487,3 @@ GET /health → {"status": "ok"}
 ```
 
 ---
-
-## License
-
-This project is proprietary. All rights reserved.
