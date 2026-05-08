@@ -487,3 +487,7 @@ GET /health → {"status": "ok"}
 ```
 
 ---
+
+## License
+
+This project is proprietary. All rights reserved.
